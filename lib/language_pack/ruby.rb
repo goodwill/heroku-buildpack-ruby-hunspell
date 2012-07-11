@@ -25,12 +25,17 @@ class LanguagePack::Ruby < LanguagePack::Base
   def default_addons
     add_shared_database_addon
   end
+  
+  def vendor_hunspell_path
+    "/app/vendor/hunspell"
+  end
 
   def default_config_vars
     vars = {
       "LANG"     => "en_US.UTF-8",
       "PATH"     => default_path,
       "GEM_PATH" => slug_vendor_base,
+      "LD_LIBRARY_PATH" =>"#{vendor_hunspell_path}/lib" 
     }
 
     ruby_version_jruby? ? vars.merge("JAVA_OPTS" => default_java_opts) : vars
@@ -175,16 +180,13 @@ private
 
   #install hunspell binaries
   def install_hunspell
-    vendor_hunspell_path="vendor/hunspell"
-    
     FileUtils.mkdir_p(vendor_hunspell_path)
     Dir.chdir(vendor_hunspell_path) do
       run("curl https://s3.amazonaws.com/tofugear-heroku/hunspell-1.3.tgz -s -o - | tar zxf -")
     end
     
-    File.open("/etc/ld.so.conf.d/libhunspell.conf","w") do |f|
-      f.write("/app/vendor/hunspell/lib")
-    end
+    
+    
     
   end
   # install the vendored ruby
