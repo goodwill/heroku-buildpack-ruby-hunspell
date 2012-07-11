@@ -175,9 +175,13 @@ private
 
   #install hunspell binaries
   def install_hunspell
-    Dir.chdir('/') do
+    vendor_hunspell_path="vendor/hunspell"
+    
+    FileUtils.mkdir_p(vendor_hunspell_path)
+    Dir.chdir(vendor_hunspell_path) do
       run("curl https://s3.amazonaws.com/tofugear-heroku/hunspell-1.3.tgz -s -o - | tar zxf -")
     end
+    
   end
   # install the vendored ruby
   # @note this only installs if we detect RUBY_VERSION in the environment
