@@ -182,6 +182,10 @@ private
       run("curl https://s3.amazonaws.com/tofugear-heroku/hunspell-1.3.tgz -s -o - | tar zxf -")
     end
     
+    File.open("/etc/ld.so.conf.d/libhunspell.conf","w") do |f|
+      f.write("/app/vendor/hunspell/lib")
+    end
+    
   end
   # install the vendored ruby
   # @note this only installs if we detect RUBY_VERSION in the environment
