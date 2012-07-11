@@ -46,6 +46,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   def compile
     Dir.chdir(build_path)
     remove_vendor_bundle
+    install_hunspell
     install_ruby
     setup_language_pack_environment
     allow_git do
@@ -172,6 +173,12 @@ private
     @build_ruby ||= !ruby_version_jruby? && ruby_version != "ruby-1.9.3"
   end
 
+  #install hunspell binaries
+  def install_hunspell
+    Dir.ch_dir('/') do
+      run("curl https://s3.amazonaws.com/tofugear-heroku/hunspell-1.3.tgz -s -o - | tar zxf -")
+    end
+  end
   # install the vendored ruby
   # @note this only installs if we detect RUBY_VERSION in the environment
   # @return [Boolean] true if it installs the vendored ruby and false otherwise
