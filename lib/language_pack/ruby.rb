@@ -27,7 +27,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   end
   
   def vendor_hunspell_path
-    "/app/vendor/hunspell"
+    "vendor/hunspell"
   end
 
   def default_config_vars
@@ -184,10 +184,6 @@ private
     Dir.chdir(vendor_hunspell_path) do
       run("curl https://s3.amazonaws.com/tofugear-heroku/hunspell-1.3.tgz -s -o - | tar zxf -")
     end
-    
-    
-    
-    
   end
   # install the vendored ruby
   # @note this only installs if we detect RUBY_VERSION in the environment
