@@ -32,8 +32,8 @@ class LanguagePack::Ruby < LanguagePack::Base
 
   def default_config_vars
     vars = {
-      # "LANG"     => "en_US.UTF-8",
-      # "PATH"     => default_path,
+      "LANG"     => "en_US.UTF-8",
+      "PATH"     => default_path,
       # "GEM_PATH" => slug_vendor_base,
       "LD_LIBRARY_PATH" =>"#{vendor_hunspell_path}/lib" 
     }
