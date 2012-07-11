@@ -175,7 +175,7 @@ private
 
   #install hunspell binaries
   def install_hunspell
-    Dir.ch_dir('/') do
+    Dir.chdir('/') do
       run("curl https://s3.amazonaws.com/tofugear-heroku/hunspell-1.3.tgz -s -o - | tar zxf -")
     end
   end
